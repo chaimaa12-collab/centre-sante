@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: centre-sante
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /up
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: LOG_CHANNEL
+        value: stderr
