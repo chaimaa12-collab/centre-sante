@@ -8,27 +8,25 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('medicaments', function (Blueprint $table) {
-            $table->string('nom')->after('id');
-            $table->string('dci')->nullable()->after('nom');
-            $table->string('categorie')->nullable()->after('dci');
-            $table->string('forme')->nullable()->after('categorie');
-            $table->decimal('prix', 10, 2)->default(0)->after('forme');
-            $table->integer('unites_boite')->default(1)->after('prix');
-            $table->integer('quantite')->default(0)->after('unites_boite');
-            $table->integer('seuil_alerte')->default(5)->after('quantite');
-            $table->string('fournisseur')->nullable()->after('seuil_alerte');
-            $table->string('code')->nullable()->after('fournisseur');
-            $table->date('date_peremption')->nullable()->after('code');
+        Schema::create('medicaments', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom');
+            $table->string('dci')->nullable();
+            $table->string('categorie')->nullable();
+            $table->string('forme')->nullable();
+            $table->decimal('prix', 10, 2)->default(0);
+            $table->integer('unites_boite')->default(1);
+            $table->integer('quantite')->default(0);
+            $table->integer('seuil_alerte')->default(5);
+            $table->string('fournisseur')->nullable();
+            $table->string('code')->nullable();
+            $table->date('date_peremption')->nullable();
+            $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::table('medicaments', function (Blueprint $table) {
-            $table->dropColumn(['nom','dci','categorie','forme','prix',
-                'unites_boite','quantite','seuil_alerte','fournisseur',
-                'code','date_peremption']);
-        });
+        Schema::dropIfExists('medicaments');
     }
 };
